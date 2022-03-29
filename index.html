@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=euc-kr">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+<meta name="keywords" content="보험, AIA생명, AIA, 생명보험, 보장">
+<meta name="description" content="AIA생명은 다양한 상품과 서비스로 고객의 니즈를 만족시키기 위해 최선을 다하고 있습니다. 사망보장, 질병, 상해는 물론 은퇴설계에 이르기까지 최적의 맞춤보장을 제공해 드립니다. ">
+<meta property="og:image" content="http://www.aia.co.kr/content/dam/kr/ko/images/site/og/aia-life.png">
+<title>(무) 꼭필요한암보험(갱신형) | AIA</title>
+<link rel="shortcut icon" type="image/x-icon" href="https://www.aia.co.kr/favicon.ico">
+<script src="./js/jquery-2.1.1.min.js"></script>
+<script src="./js/slick.min.js"></script>
+
+<script>
+
+function addViewportEvent(e,i){var t="scroll.addViewportEvent load.addViewportEvent resize.addViewportEvent";if(e=$.extend({parent:window,triggerPosition:!1,triggerPositionPercent:!1,enter:!1,leave:!1,visiblePercent:!1,visible:!1,invisible:!1},e||{}),"number"==typeof(e.triggerPosition&&e.triggerPositionPercent))return!0;$.fn.extend({destroy:function(){$(e.parent).off(t)}});return i.each(function(i,r){var n=!1,o=!1,s=!1,g=e.parent;$(g).on(t,function(){var i={Height:$(r).outerHeight(),ViewportHeight:$(g).height(),ScrollTop:$(document).scrollTop(),OffsetTop:$(r).offset().top},t=((i.ScrollTop+i.ViewportHeight-i.OffsetTop)/i.Height*100).toFixed(2),l=-((i.ScrollTop-i.OffsetTop-i.Height)/i.Height*100).toFixed(2),c=i.OffsetTop-i.ScrollTop-e.triggerPosition,v=(c/i.ViewportHeight*100-e.triggerPositionPercent).toFixed(2);o=t>=0&&l>=0,v>=50?v=50:-50>=v&&(v=-50),o&&100>=t?visiblePercent=t:o&&100>=l?visiblePercent=l:o?visiblePercent=100:visiblePercent=0,o&&(r.isVisible=o,r.isEnter=n,r.viewPortPositionPercent=v,r.viewPortPosition=c,r.visiblePercent=visiblePercent),o&&((!n&&e.triggerPositionPercent!==!1&&0>=v||e.triggerPosition&&0>=c)&&($(r).trigger("enter"),$.isFunction(e.enter)&&e.enter()),(n&&e.triggerPositionPercent!==!1&&v>0||e.triggerPosition&&c>0)&&($(r).trigger("leave"),$.isFunction(e.leave)&&e.leave())),!s&&visiblePercent>0&&($(r).trigger("visible"),$.isFunction(e.visible)&&e.visible()),s&&0==visiblePercent&&($(r).trigger("invisible"),$.isFunction(e.invisible)&&e.invisible(),$(r).trigger("leave"),$.isFunction(e.leave)&&e.leave()),$.isFunction(e.visiblePercent)&&e.visiblePercent(Number(visiblePercent),i),s=0!=visiblePercent,n=e.triggerPositionPercent&&0>=v&&o||e.triggerPosition&&0>=c&&o})})}
+
+// 210322 수정
+function calc() { 
+    $(".popup.calc").show();
+    $(".popup.agree").hide();
+}
+
+function comp() {
+    $(".popup.comp").show();
+    $(".popup.agree").hide();
+}
+
+(function($) {
+    var AIA_UI = {
+		var : {
+			sChecked : null,
+			dChecked : null
+		},
+
+		popup: function() {
+            $('[data-role="open_popup"]').on({
+                "click" : function(e){
+                    var array = $(this).attr("data-send").split("|");
+                    var target = $("[data-receive='"+ (array[0]) +"']");
+                    target.show();
+					if( array[1] == 1 ){
+						target.find(".all_check").attr("onclick", "calc()");
+					} else {
+						target.find(".all_check").attr("onclick", "comp()");
+					}
+                    e.preventDefault();
+                }
+            });
+            
+            $(".popup .btn_close").on({
+                "click" : function(e){
+                    $(this).parents(".popup").hide();
+                    e.preventDefault();
+                }
+            });
+        },
+// 210322 수정
+
+        event : function(){
+            $(".guide_area button").on({
+                "click" : function(e){
+                    var target = $(this).parents(".guide_area").find(".img");
+                    if(target.hasClass("on")){
+                        target.removeClass("on");
+                    } else {
+                        target.addClass("on");
+						$("body, html").animate({ scrollTop :  $(".guide_area").offset().top }, 500);
+                    }
+                }
+			});
+
+			$(".floating .btn01, .floating .btn02").on({
+				"click" : function(e){
+					var _this 	= $(this);
+					var target 	= $(".floating");
+					if(! target.hasClass("on") ){
+						target.addClass("on");
+					} 
+
+					$(".floating .calc, .floating .consult").hide();
+					if( _this.attr("class") == "btn01" ){
+						$(".floating .calc").show();
+					} else {
+						$(".floating .consult").show();
+					}
+					e.preventDefault();
+				}
+			});
+			
+			$(".floating .btn_toggle").on({
+				"click" : function(e){
+					var target 	= $(".floating");
+					if( target.hasClass("on") ){
+						target.removeClass("on");
+					} else {
+						target.addClass("on");
+					}
+					e.preventDefault();
+				}
+			});
+
+			$(".popup.agree .all_check").on({
+				"click" : function(e){
+					$(".popup.agree .agree input[type='checkbox']").prop("checked", true);
+					e.preventDefault();
+				}
+			});
+
+			$(".popup .agree button").on({
+				"click" : function(e){
+					var _this = $(this);
+					var target = _this.next();
+					if( _this.hasClass("on") ){
+						_this.removeClass("on");
+						target.hide();
+					} else {
+						_this.addClass("on");
+						target.show();
+					}
+					e.preventDefault();
+				}
+			});
+		},
+
+		scroll : function(){
+			$(window).scroll(function(){
+				if( AIA_UI.var.sChecked == "s1" ){
+					var windowTop = $(window).scrollTop();
+					var guideLine01 = $(".b02").offset().top;
+					var guideLine02 = $(".s08").offset().top - parseInt($(window).height());
+					var guideLine03 = $(".guide_area").offset().top;
+					
+					if(  windowTop >= guideLine01 ){
+						$("#AIA_wrap").addClass("show");
+						if( windowTop > guideLine02 ){
+							$("#AIA_wrap").removeClass("show");
+						}
+						if( windowTop > guideLine03  ){
+							$("#AIA_wrap").addClass("show");
+						}
+					} else {
+						$("#AIA_wrap").removeClass("show");
+					} 
+				}
+			});
+		},
+
+		slick: function() {
+            $(".slick_slide").slick({
+                dots: 0,
+                infinite: true,
+                speed: 500,
+                autoplay: true,
+                autoplaySpeed: 3000,
+            }).on("afterChange", function(n, o, c) {})
+        },
+
+        init: function() {
+			AIA_UI.var.sChecked = $(window).width() > 900 ? "s2" : "s1";
+			AIA_UI.var.dChecked = AIA_UI.var.sChecked;
+
+			imgReplace();
+			function imgReplace(){
+				$("#AIA_wrap img").each(function(){
+					if( AIA_UI.var.sChecked == "s1" ){
+						$(this).attr("src", $(this).attr("data-mo-src"));
+					} else {
+						$(this).attr("src", $(this).attr("data-pc-src"));
+					}
+				});
+			}
+
+			$(window).resize(function(){
+				AIA_UI.var.sChecked = $(window).width() > 900 ? "s2" : "s1";
+				if( AIA_UI.var.sChecked != AIA_UI.var.dChecked ){
+					imgReplace();
+					AIA_UI.var.dChecked = AIA_UI.var.sChecked
+				}
+			});
+
+            this.popup(), this.event(), this.scroll(), this.slick()
+        }
+    };
+    $(function() {
+		var motionTargetArray = [".s01", ".s02", ".s03", ".s04"];
+		$.each( motionTargetArray, function(i,e){
+			addViewportEvent({
+				triggerPositionPercent: 30,
+				enter: function () {
+					$(e).addClass("mt");
+				},
+				leave : function(){
+					$(e).removeClass("mt");
+				}
+			}, $(e));
+		});
+
+        AIA_UI.init();
+	});
+})(jQuery);
+</script>
+<!-- 210322 수정 -->
+<style>
+@font-face {
+	font-family: "NanumSquareBold";
+	src: url(./font/NanumSquareB.eot);
+	src: url(./font/NanumSquareB.eot?#iefix) format("embedded-opentype"), url(./font/NanumSquareB.woff) format("woff"), url(./font/NanumSquareB.ttf) format("truetype");
+}
+
+@font-face {
+	font-family: "NanumSquareRegular";
+	src: url(./font/NanumSquareR.eot);
+	src: url(./font/NanumSquareR.eot?#iefix) format("embedded-opentype"), url(./font/NanumSquareR.woff) format("woff"), url(./font/NanumSquareR.ttf) format("truetype");
+}
+
+html,body,div,ul,ol,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,p,input,button,th,td,select,textarea { margin: 0; padding: 0; box-sizing: border-box; }
+body,a,input,button,select,strong,textarea { color: #000; font-family: "NanumSquareRegular","맑은 고딕",Arial,Sans-serif; font-size: 15px; letter-spacing: -1px; word-break: keep-all; }
+h1,h2,h3,h4,h5,h6 { font-size: 100%; }
+fieldset,img { border: 0 none; }
+img { vertical-align: top; }
+ol,ul { list-style: none; }
+address { font-style: normal; }
+button, button[type="button"] { border: 0; cursor: pointer; background:none; outline: none; }
+em { font-style: normal; }
+select { -webkit-border-radius: 0; background: transparent; }
+input[type="text"] { border: none; color: #000; outline: none; }
+a { text-decoration: none; }
+h2, h3 { font-weight: normal; }
+.bold { font-family: "NanumSquareBold"; }
+input:-ms-input-placeholder { color: #c7c7c7 !important; }
+input::-webkit-input-placeholder { color: #c7c7c7; }
+input::-moz-placeholder { color: #c7c7c7; }
+.hide { position: absolute; left: -9999px; top: -9999px; font-size: 0; line-height: 0; height: 0; overflow: hidden; }
+.slick-slider {position: relative;display: block;-moz-box-sizing: border-box;box-sizing: border-box;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;-webkit-touch-callout: none;-khtml-user-select: none;-ms-touch-action: pan-y;touch-action: pan-y;-webkit-tap-highlight-color: transparent;}.slick-list {position: relative;display: block;overflow: hidden;margin: 0;padding: 0;}.slick-list:focus {outline: none;}.slick-list.dragging {cursor: pointer;cursor: hand;}.slick-slider .slick-track, .slick-slider .slick-list {-webkit-transform: translate3d(0, 0, 0);-moz-transform: translate3d(0, 0, 0);-ms-transform: translate3d(0, 0, 0);-o-transform: translate3d(0, 0, 0);transform: translate3d(0, 0, 0);}.slick-track {position: relative;top: 0;left: 0;display: block;}.slick-track:before, .slick-track:after {display: table;content: "";}.slick-track:after {clear: both;}.slick-loading .slick-track {visibility: hidden;}.slick-slide {display: none;float: left;height: 100%;min-height: 1px;}[dir="rtl"] .slick-slide {float: right;}.slick-slide img {display: block;}.slick-slide.slick-loading img {display: none;}.slick-slide.dragging img {pointer-events: none;}.slick-initialized .slick-slide {display: block;}.slick-loading .slick-slide {visibility: hidden;}.slick-vertical .slick-slide {display: block;height: auto;border: 1px solid transparent;}.slick-slide img.guide {width: 96%;margin: 2vw auto 0;}.slick-arrow.slick-hidden {display: none;}
+
+
+@media screen and (min-width : 901px) {
+	.inner { position: relative; width: 1080px; margin: 0 auto; text-align: center; }
+	.only_pc { display: block; }
+	.only_mo { display: none; }
+	.motion > * { position:absolute; }
+
+	.header a { display: block; position: absolute; height: 100px;  top: 0; text-indent: -9999px; }
+	.header a.btn_home { width: 190px; left: 0; }
+	.header a.btn_tele { width: 242px; right: 0; }
+	.header .text { position:absolute; left:536px; top:48px; }
+	.header .text > img { float:left; }
+	.header .motion { float:left; position:relative; margin:2px 0 0 10px; }
+	.header .motion .tri{ position:absolute; left:0; top:0; border-top:13px solid none; border-bottom:13px solid #d31145; border-right: 8px solid transparent; border-left: 8px solid  transparent; transform: rotate(90deg); animation: arrow infinite 2s linear; }
+	.header .tri.n02 { left:10px; animation: arrow infinite 2s 0.5s linear; }
+	.header .tri.n03 { left:20px; animation: arrow infinite 2s 1s linear; }
+    .db_box { position: absolute; right:18px; top:0; width: 390px; height: 542px; padding: 36px 30px 50px; background-image:url("./images/w20210222_aia_db_bg.png"); }/*210322 수정*/
+    .db_box input[type="text"] { width: 330px; height: 40px; padding: 0 20px; padding-left:105px; line-height: 40px; font-size: 20px; background: #fff; border-radius: 3px; border :1px solid #4755cf ; } /*210322 수정*/
+	.db_box ul { margin-top:10px; }
+	.db_box ul:after { content:""; display:block; clear:both; }
+	.db_box ul li:after { content: ""; display: block; clear: both; }
+	.db_box ul li { float:left; position: relative; height: 40px; margin-top: 10px; }
+	.db_box ul li label { position: absolute; top: 0; left: 15px; height: 40px; font-size:20px; color:#191919; line-height:40px; }
+	.db_box ul li.name { display: inline-block; }
+	.db_box ul li.name input { width: 250px; float: left; }
+	.db_box ul li.sex { float: right; position: relative; width: 74px; height: 40px; padding: 0; }
+	.db_box ul li.sex input { width: 1px; height: 1px; overflow: hidden; position: absolute; left: -9999px; }
+	.db_box ul li.sex input + label { position: absolute; top: 0; left:auto; right:0; display: block; width: 35px; height: 40px; cursor: pointer; background:url("./images/w_female_off_wlc.png") no-repeat 0 0; text-indent:-9999px; }
+	.db_box ul li.sex input:first-child + label { right:auto; left: 0; background-image:url("./images/w_male_off_wlc.png"); }
+	.db_box ul li.sex input:checked + label { background-image:url("./images/w_female_on_wlc.png"); }
+	.db_box ul li.sex input:first-child:checked + label { background-image:url("./images/w_male_on_wlc.png"); }
+	.db_box .btn_area { margin-top: 20px; margin-left:-5px; }
+	.db_box .btn_area a { display:inline-block; margin-bottom:5px; }
+
+	.s01 { height:592px; background:url("./images/w20210222_aia_s01_bg01.jpg") no-repeat center center; }
+	.s01 .text { position:absolute; left:289px; top:67px; }
+	.s01 .motion { position:absolute; left:287px; top:179px; }
+	.s01 .motion .m01 { position:absolute; left:0; top:0; width:0; height:86px; text-align: left; overflow:hidden;  }
+	.s01.mt .motion .m01 { width:375px; transition:width 0.8s 0.5s ease-in-out; } 
+	.s01 .motion .dot { position:absolute; left:30px; top:-23px; width:24px; height:24px; background:#010a7a; opacity:0; }
+	.s01 .motion .dot + .dot { left:92px; }
+	.s01 .motion .dot + .dot + .dot { left:154px; }
+	.s01.mt .motion .dot { left:38px; top:-15px; width:8px; height:8px; opacity:1; transition:all 0.3s ease-in; transition-delay:1.2s; }
+	.s01.mt .motion .dot + .dot { left:100px; transition-delay:1.4s; }
+	.s01.mt .motion .dot + .dot + .dot { left:162px; transition-delay:1.6s; }
+
+	.b01 { background:#3b3c58;  }  /*210322 수정*/
+	.b01 .inner { padding:30px 0; }
+	.b01 .slick-slide { text-align:center; outline:none; }
+	.b01 .slick-slide img { display:inline-block; }
+	.b01 .slick-arrow { display:none !important; }
+
+	.s02 .text { position:absolute; left:348px; top:325px; z-index:1; }
+	.s02 .motion > img { transition:opacity 0.8s ease; }
+	.s02 .motion .m01 { opacity:0; left:22px; top:445px; }
+	.s02 .motion .m02 { opacity:0; left:373px; top:445px; }
+	.s02 .motion .m03 { opacity:0; left:728px; top:445px; }
+	.s02 .motion .m04 { opacity:0; width:80px; left:87px; top:244px; }
+	.s02 .motion .line { left:337px; top:373px; width:0; height:21px; background-color:#ffeac6; }  /*210322 수정*/
+	.s02.mt .m01 { opacity:1; transition-delay: 1s; }
+	.s02.mt .m02 { opacity:1; transition-delay: 1.3s; }
+	.s02.mt .m03 { opacity:1; transition-delay: 1.6s; }
+	.s02.mt .m04 { opacity:1; width:40px; left:107px; top:264px; transition:all 0.5s ease-in; }
+	.s02.mt .motion .line { width:420px; transition:width 0.5s 0.5s ease-in; }
+
+	.s03 { background-color:#f9f9f9; }
+	.s03 .text { position:absolute; left:463px; top:247px; z-index:1; }
+	.s03 .motion > img { transition:opacity 0.8s ease; }
+	.s03 .motion .m01 { opacity:0; left:370px; top:365px; }
+	.s03 .motion .m02 { opacity:0; left:176px; top:466px; }
+	.s03 .motion .m03 { opacity:0; left:752px; top:503px; }
+	.s03 .motion .m04 { opacity:0; width:80px; left:253px; top:158px; }
+	.s03 .motion .line { left:442px; top:295px; width:0; height:21px; background-color:#ffeac6; } /*210322 수정*/
+	.s03.mt .m01 { opacity:1; transition-delay: 1s; }
+	.s03.mt .m02 { opacity:1; transition-delay: 1.3s; }
+	.s03.mt .m03 { opacity:1; transition-delay: 1.6s; }
+	.s03.mt .m04 { opacity:1; width:40px; left:273px; top:178px; transition:all 0.5s ease-in; }
+	.s03.mt .motion .line { width:240px; transition:width 0.5s 0.5s ease-in; }
+
+	.s04 .inner { height:1250px; }
+	.s04 .text { position:absolute; left:576px; top:226px; z-index:1; }
+	.s04 .motion .m01 { opacity:0; left:200px; top:336px; transition:opacity 0.8s ease; }
+	.s04 .motion .m01 .t01 { position:absolute; left:384px; top:40px; z-index:1; }
+	.s04 .motion .m01 .line { position:absolute; left:380px; top:64px; width:0; height:11px; background-color:#ffeac6; } /*210322 수정*/
+	.s04 .motion .m02 { opacity:0; left:200px; top:630px; transition:opacity 0.8s ease; }
+	.s04 .motion .m02 .t01 { position:absolute; left:452px; top:36px; z-index:1; }
+	.s04 .motion .m02 .line { position:absolute; left:448px; top:60px; width:0; height:11px; background-color:#ffeac6; } /*210322 수정*/
+	.s04 .motion .m03 { opacity:0; left:200px; top:905px; transition:opacity 0.8s ease; }
+	.s04 .motion .m03 .t01 { position:absolute; height:28px; left:363px; top:27px; z-index:1; }
+	.s04 .motion .m03 .line { position:absolute; left:356px; top:50px; width:0; height:11px; background-color:#ffeac6; } /*210322 수정*/
+	.s04 .motion .m04 { opacity:0; width:80px; left:118px; top:200px; }
+	.s04 .motion > .line { left:569px; top:275px; width:0; height:21px; background-color:#ffeac6; }  /*210322 수정*/
+	.s04.mt .m01 { opacity:1; transition-delay: 1s; }
+	.s04.mt .m02 { opacity:1; transition-delay: 1.5s; }
+	.s04.mt .m03 { opacity:1; transition-delay: 2s; }
+	.s04.mt .m04 { opacity:1; width:40px; left:138px; top:220px; transition:all 0.5s ease-in; }
+	.s04.mt .motion > .line { width:325px; transition:width 0.5s 0.5s ease-in; }
+	.s04.mt .motion .m01 .line { width:104px; transition:width 0.5s 1.2s ease-in; }
+	.s04.mt .motion .m02 .line { width:104px; transition:width 0.5s 1.7s ease-in; }
+	.s04.mt .motion .m03 .line { width:162px; transition:width 0.5s 2.2s ease-in; }
+
+	.s05 { background-color:#f6f6f6; }
+
+	.s07 { background:#f9f9f9; }
+	.s07 .slick_wrap { position:absolute; top:300px; left:60px; width:960px; margin:0 auto;}
+	.s07 .slick_wrap .slick-slide { outline:none; }
+	.s07 .slick_wrap .slick-slide > img { margin:0 auto; }
+	.s07 .slick-arrow { position: absolute; top:130px; right: -50px; width: 29px; height: 46px; text-indent: -9999px; background: url("./images/w20210222_aia_slide_next.png") no-repeat center center; }
+	.s07 .slick-prev { right: auto; left: -50px; background-image: url("./images/w20210222_aia_slide_prev.png"); }
+
+	.s08 { background: #e4f2ff; }
+	.s08 .inner { padding:45px 50px; }
+	.s08 .db_box { position:static; width: 100%; height: auto; padding: 0; margin: 0 auto; }
+	.s08 .db_box h3 { text-align:center; }
+	.s08 .db_box ul { margin-top:35px; padding:0 50px; }
+	.s08 .db_box ul:after { content:""; display:block; clear:both; }
+	.s08 .db_box ul li { float:left; padding:0; margin:0; margin-left:50px; }
+	.s08 .db_box ul li:first-child { margin-left:0; }
+	.s08 .db_box ul li input { width:250px; }
+	.s08 .db_box ul li.name input { width:200px; padding-left:70px; }
+	.s08 .db_box ul li.phone input { padding-left:85px; }
+	.s08 .db_box ul li.sex { margin-left:5px; }
+	.s08 .db_box ul li.sex label { margin:0; }
+	.s08 .db_box .btn_area { width:990px; margin-top:40px; text-align:center; }
+	.s08 .db_box .btn_area a { position:relative; }
+	.s08 .db_box .btn_area .m01 { position:absolute; left:372px; top:31px; }
+
+	.guide_area .subTitle { height:60px; background-color: #8c8c8c; }
+	.guide_area .subTitle .wrap { height: 100%; }
+	.guide_area .subTitle .wrap button { display: block; width: 1040px; height: 100%; margin: 0 auto; text-align: center; }
+	.guide_area .subTitle .wrap button img { vertical-align: middle; }
+	.guide_area .img { display: none; width: 1040px; margin: 20px auto 0; padding-bottom: 100px; text-align: center; }
+	.guide_area .img.on { display: block; }
+
+	.footer { background:#3d3d3d; }
+
+	.popup { display: none; }
+	.popup .mask { position: fixed; left: 0; top: 0; right: 0; bottom: 0; background: #000; opacity: 0.7; filter: alpha(opacity=70); z-index: 100; }
+	.popup .popup_content { position: fixed; left: 50%; top: 50%; background: #fff; z-index: 101; }
+	.popup.agree button { outline: none; }
+	.popup.agree .popup_content { top:40px; width:550px; padding:30px; margin-left:-275px; background:#fff; border:2px solid #d31145; border-radius: 56px; }
+	.popup.agree .popup_content .img {width:74%;}
+	.popup.agree .popup_content .img img {width:100%;}
+	.popup.agree .wrap { padding:0; }
+	.popup.agree .wrap .agree { margin-top: 25px; }
+	.popup.agree .wrap .agree > div { position: relative;  margin-top: 5px;  }
+	.popup.agree .wrap .agree input { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+	.popup.agree .wrap .agree label { display:block; height:34px; padding-left: 27px; background: url("./images/w20210222_popup_radio_off.png") no-repeat left 0 top 7px / 20px auto; }
+	.popup.agree .wrap .agree label img { position:relative; top:9px; height:20px; }
+	.popup.agree .wrap .agree input:checked + label { background-image: url("./images/w20210222_popup_radio_on.png"); }
+	.popup.agree .wrap .agree button { display:inline-block; position: absolute; right: 0; top:0; width:90px; height:34px; text-indent:-9999px; background: url("./images/w20210222_popup_btn_agree_off.png") no-repeat 0 0 / 100% auto; }
+	.popup.agree .wrap .agree button.on { background-image: url("./images/w20210222_popup_btn_agree_on.png"); }
+	.popup.agree .wrap .agree button img { height: 100%; }
+	.popup.agree .wrap .agree .toggle { display:none; height:120px; margin:6px 0 10px; border:2px solid #dfdfdf; overflow:auto; }
+	.popup.agree .wrap .agree .toggle img { width:100%; }
+	.popup.agree .wrap .all_check { margin-top:15px; }
+	.popup.agree .wrap .all_check,
+	.popup.agree .wrap .all_check img { width:100%; }
+	.popup.agree .wrap .btn_area .btn_result { display:none; }
+	.popup.agree .wrap .btn_area { margin-top:18px; padding-bottom:36px; }
+	.popup.agree .wrap .btn_area:after { content:""; display:block; clear:both; }
+	.popup.agree .wrap .btn_area a { display:block; float:right; width:218px; }
+	.popup.agree .wrap .btn_area a.btn01,
+	.popup.agree .wrap .btn_area a.btn02 { float:left; }
+	.popup.agree .wrap .btn_area a img { width:100%; }
+	.popup.agree .wrap .btn_area .btn01 { display:none; }
+	.popup.agree .btn_close { display:block; position:absolute; top:25px; right:30px; width:25px; height:25px;  }
+	.popup.agree .btn_close img { width:100%; }
+     
+     /*210322 수정*/
+	.popup.type02 .popup_content { border-top: 25px solid #4755cf; text-align: center; }
+	.popup.type02 .popup_content h2 { margin-top: 50px; padding-top: 70px; background: url("./images/w20210222_popup_icon01.png") no-repeat center 0; }
+	.popup.type02 .popup_content p.text { margin-top: 30px; font-size: 20px; line-height: 26px; padding: 0 5px; }
+	.popup.type02 .popup_content p.text span { color: #4755cf; }
+	.popup.type02 .popup_content p.guide { margin-top: 16px; font-size: 18px; }
+	.popup.comp .popup_content { width: 512px; height: 406px; margin-top: -203px; margin-left: -256px; }
+	.popup.comp .popup_content h2 { font-size: 42px; }
+	.popup.comp .popup_content h2 span { color:#4755cf; }
+	.popup.comp .btn_close { position: absolute; top: 12px; right: 12px; }
+	.popup.calc .popup_content { width: 512px; height: 406px; margin-top: -203px; margin-left: -256px; }
+	.popup.calc .popup_content h2 { font-size: 20px; }
+	.popup.calc .popup_content .calc_area { margin-top: 12px; font-size: 43px; }
+	.popup.calc .popup_content .calc_area span { color: #4755cf; }
+	.popup.calc .popup_content .calc_area strong { margin: 0 38px; font-size: 42px; color: #4755cf; }
+	.popup.calc .btn_close { position: absolute; top: 12px; right: 12px; }
+     /*210322 수정*/
+	
+	@keyframes arrow {
+		0%  { opacity : 1; }
+		70% { opacity : 0.2; }
+		100%{ opacity : 1; }
+	}
+}
+
+
+
+
+@media screen and (max-width : 900px) {
+	img { width: 100%; border: none; vertical-align: top; }
+	.only_pc { display: none; }
+	.only_mo { display: block; }
+	.inner { position: relative; width: 100%; }
+
+	#AIA_wrap.show { padding-bottom:20vw; }
+	.motion > * { position:absolute; }
+
+	.header a { display: block; position: absolute; height: 13.3333vw;  top: 0; text-indent: -9999px; }
+	.header a.btn_home { width: 26.8888vw; left: 0; }
+	.header a.btn_tele { width: 28.6666vw; right: 0; }
+     
+	
+	.db_box input[type="text"] { width: 100%; height: 10.2222vw; padding: 0 3.3333vw; padding-left:26vw; line-height: 10.2222vw; font-size: 5.5555vw; background: #fff; border-radius: 2px; border :1px solid #4755cf ; } /*210322 수정*/
+	.db_box ul { margin-top:1.6666vw; }
+	.db_box ul:after { content:""; display:block; clear:both; }
+	.db_box ul li:after { content: ""; display: block; clear: both; }
+	.db_box ul li { float:left; position: relative; height: 10.2222vw; margin-top: 2.2222vw; }
+	.db_box ul li label { position: absolute; top: 0; left: 3.3333vw; height: 10.2222vw; font-size: 5.5555vw; color:#848484; line-height:10.2222vw; }
+	.db_box ul li.name { display: inline-block; }
+	.db_box ul li.name input { width: 65.4444vw; float: left; }
+	.db_box ul li.sex { float: right; position: relative; width: 19.2vw; height: 10.4444vw; padding: 0; }
+	.db_box ul li.sex input { width: 1px; height: 1px; overflow: hidden; position: absolute; left: -9999px; }
+	.db_box ul li.sex input + label { position: absolute; top: 0; left:auto; right:0; display: block; width: 8.8888vw; height: 10.4444vw; cursor: pointer; background:url("./images/mo_female_off_wlc.png") no-repeat 0 0 / 100% auto; text-indent:-9999px; }
+	.db_box ul li.sex input:first-child + label { right:auto; left: 0; background-image:url("./images/mo_male_off_wlc.png"); }
+	.db_box ul li.sex input:checked + label { background-image:url("./images/mo_female_on_wlc.png"); }
+	.db_box ul li.sex input:first-child:checked + label { background-image:url("./images/mo_male_on_wlc.png"); }
+	.db_box .btn_area { margin-top: 3vw; }
+	.db_box .btn_area a { display:inline-block; margin-bottom:1vw; }
+
+	.s01 .motion { position:absolute; left:11.4444vw; top:16.2222vw; }
+	.s01 .motion .m01 { position:absolute; left:0; top:0; width:0; height:16.6666vw; text-align: left; overflow:hidden;  }
+	.s01.mt .motion .m01 { width:76.1111vw; transition:width 0.8s ease-in-out; } 
+	.s01.mt .motion .m01 > img { width:76.1111vw; }
+	.s01 .motion .dot { position:absolute; left:6.4111vw; top:-4.3666vw; width:5.1vw; height:5.1vw; background:#010a7a; opacity:0; }
+	.s01 .motion .dot + .dot { left:21.5555vw; }
+	.s01 .motion .dot + .dot + .dot { left:33.4111vw; }
+	.s01.mt .motion .dot { left:8.1111vw; top:-2.6666vw; width:1.7vw; height:1.7vw; opacity:1; transition:all 0.3s ease-in; transition-delay:0.7s; }
+	.s01.mt .motion .dot + .dot { left:21.5555vw; transition-delay:0.9s; }
+	.s01.mt .motion .dot + .dot + .dot { left:35.1111vw; transition-delay:1.1s; }
+	.s01 .db_box { position: absolute; left:0; top:59.1111vw; padding:6.1111vw 6.6666vw; background-color:#e4f2ff; }      /*210322 수정*/
+
+	.b01 { padding-bottom:100vw; background:#3b3c58; }
+	.b01 .inner { padding:3.3333vw 0; }
+	.b01 .inner:after { content:""; display:block; position:absolute; left:50%; bottom:-2.7777vw; margin-left:-2.8333vw; width:5.6666vw; height:2.7777vw; background:url("./images/m20210222_aia_b01_deco01.png") no-repeat 0 0 / 100% auto; }
+	.b01 .slick-slide { text-align:center; outline:none; }
+	.b01 .slick-slide img { display:inline-block; width:auto; height:4.4444vw; }
+	.b01 .slick-arrow { display:none !important; }
+
+	.b02 input { position:absolute; height:9vw; font-size:5.5555vw; line-height:9.2vw; text-align:center; border:1px solid #d5d5d5; border-radius: 1px; font-family: "NanumSquareBold"; }
+	.b02 .user_name { left:8.6vw; top:8.1vw; width:27.5555vw; color:#000; }
+	.b02 .user_premium { left:25.2vw; top:20vw; width:32.6666vw; color:#4755cf; }  /*210322 수정*/
+
+	.s02 .text { position:absolute; left:27.7777vw; top:34.8888vw; width:46.6666vw; z-index:1; }
+	.s02 .motion > img { width:92.3333vw; transition:opacity 0.8s ease; }
+	.s02 .motion .m01 { opacity:0; left:5vw; top:50.4444vw; }
+	.s02 .motion .m02 { opacity:0; left:5vw; top:93vw; }
+	.s02 .motion .m03 { opacity:0; left:5vw; top:135.5555vw; }
+	.s02 .motion .line { left:26.2222vw; top:40.4444vw; width:0; height:2vw; background-color:#ffeac6; } /*210322 수정*/
+	.s02.mt .m01 { opacity:1; transition-delay: 0.3s; }
+	.s02.mt .m02 { opacity:1; transition-delay: 0.6s; }
+	.s02.mt .m03 { opacity:1; transition-delay: 0.9s; }
+	.s02.mt .motion .line { width:49.4444vw; transition:width 0.5s 0.3s ease-in; }
+
+	.s03 .text { position:absolute; left:18.1vw; top:38.9vw; width:21.8888vw; z-index:1; }
+	.s03 .motion > img { transition:opacity 0.8s ease; }
+	.s03 .motion .m01 { width:54.4444vw; opacity:0; left:23.5555vw; top:57.1111vw; }
+	.s03 .motion .m02 { width:25.2222vw; opacity:0; left:7.3vw; top:87.5555vw; }
+	.s03 .motion .m03 { width:21.6666vw; opacity:0; left:74.4444vw; top:60vw; }
+	.s03 .motion .line { left:17.4444vw; top:44.8888vw; width:0; height:2vw; background-color:#ffeac6; } /*210322 수정*/
+	.s03.mt .m01 { opacity:1; transition-delay: 0.3s; }
+	.s03.mt .m02 { opacity:1; transition-delay: 0.6s; }
+	.s03.mt .m03 { opacity:1; transition-delay: 0.9s; }
+	.s03.mt .motion .line { width:23.3333vw; transition:width 0.5s 0.3s ease-in; }
+
+	.s04 .inner { height:257vw; background:#f6f6f6; }
+	.s04 .text { position:absolute; left:33.1111vw; top:34.8888vw; width:35.3333vw; z-index:1; }
+	.s04 .motion .m01 { opacity:0; left:4.8888vw; top:48.8888vw; width:90.2222vw; transition:opacity 0.8s ease; }
+	.s04 .motion .m01 .t01 { position:absolute; left:30vw; top:12.7777vw; width:17.7777vw; z-index:1; }
+	.s04 .motion .m01 .line { position:absolute; left:28.6666vw; top:17.3333vw; width:0; height:1.5555vw; background-color:#ffeac6; } /*210322 수정*/
+	.s04 .motion .m02 { opacity:0; left:4.8888vw; top:118.2222vw; width:90.2222vw; transition:opacity 0.8s ease; }
+	.s04 .motion .m02 .t01 { position:absolute; left:35.5555vw; top:15vw; width:17.5555vw; z-index:1; }
+	.s04 .motion .m02 .line { position:absolute; left:34.6666vw; top:19.6666vw; width:0; height:1.5555vw; background-color:#ffeac6; } /*210322 수정*/
+	.s04 .motion .m03 { opacity:0; left:4.8888vw; top:184.2222vw; width:90.2222vw; transition:opacity 0.8s ease; }
+	.s04 .motion .m03 .t01 { position:absolute; left:18.5555vw; top:15vw; width:30.5555vw; z-index:1; }
+	.s04 .motion .m03 .line { position:absolute; left:16.6666vw; top:19.6666vw; width:0; height:1.5555vw; background-color:#ffeac6; } /*210322 수정*/
+	.s04 .motion > .line { left:31.8888vw; top:40.4444vw; width:0; height:2vw; background-color:#ffeac6; }
+	.s04.mt .m01 { opacity:1; transition-delay: 0.5s; }
+	.s04.mt .m02 { opacity:1; transition-delay: 0.8s; }
+	.s04.mt .m03 { opacity:1; transition-delay: 1.1s; }
+	.s04.mt .motion > .line { width:37.3333vw; transition:width 0.5s 0.3s ease-in; }
+	.s04.mt .motion .m01 .line { width:19.5555vw; transition:width 0.5s 0.7s ease-in; }
+	.s04.mt .motion .m02 .line { width:19.5555vw; transition:width 0.5s 1s ease-in; }
+	.s04.mt .motion .m03 .line { width:33.5555vw; transition:width 0.5s 1.3s ease-in; }
+
+	.s07 .slick_wrap { position:absolute; top:33.8888vw; left:9vw; width:82vw; margin:0 auto;}
+	.s07 .slick_wrap .slick-slide { outline:none; }
+	.s07 .slick_wrap .slick-slide > img { margin:0 auto; }
+	.s07 .slick-arrow { position: absolute; top:50%; right: -6vw; width: 3.2222vw; height: 5.1111vw; margin-top:-2.5555vw; text-indent: -9999px; background: url("./images/m20210222_aia_slide_next.png") no-repeat center center / 100% auto; }
+	.s07 .slick-prev { right: auto; left: -6vw; background-image: url("./images/m20210222_aia_slide_prev.png"); }
+
+	.s08 .db_box { padding:14.4444vw 6.6666vw 6.1111vw; background:#e4f2ff url("./images/m20210222_aia_db_bg01.gif") no-repeat 0 0 / 100% auto; }
+
+	.b02 { background:#4755cf; } /*210322 수정*/
+	.b02 .btn_area { position:absolute; left:50%; top:118px; margin-left:-316px; }
+	.b02 .btn_area a { display:inline-block; position:relative; }
+	.b02 .btn_area .m01 { position:absolute; left:444px; top:80px; }
+
+	.guide_area .subTitle { height: 10vw; background-color: #8c8c8c; }
+	.guide_area .subTitle .wrap { height: 100%; }
+	.guide_area .subTitle .wrap button { display: block; width: 100%; height: 100%; margin: 0 auto; text-align: center; }
+	.guide_area .subTitle .wrap button img { width:90%; vertical-align: middle; }
+	.guide_area .img { display: none; width: 100%; margin: 3vw auto 0; padding-bottom: 10vw; text-align: center; }
+	.guide_area .img.on { display: block; }
+
+	.floating { position:fixed; left:0; bottom:-22vw; width:100%; background:#fff; z-index:20; transition:opacity 0.3s; opacity:0; }
+	.show .floating { opacity:1; bottom:0; }
+	.floating .layer { position:absolute; left:0; bottom:-55vw; height:67vw; transition:bottom 0.5s; background:#e4f2ff; }   /*210322 수정*/
+	.floating.on .layer { bottom: 5vw; }
+	.floating .inner ul li { float:left; width:50%; }
+	.floating .inner ul:after { content:""; display:block; clear:both; }
+	.floating .db_box { padding:2vw 4vw 6vw; }
+	.floating .db_box input[type="text"] { background:#fff; }
+	.floating .db_box ul { margin-top:0; padding:0; }
+	.floating .db_box ul li { padding:0; }
+	.floating .db_box ul li.sex { width:45.3333vw; }
+	.floating .db_box ul li.phone { float:right; }
+	.floating .db_box ul li input { width:45.5555vw; padding:0 10px; font-size:4.2vw; }
+	.floating .db_box ul li.sex input + label { width:22.3333vw; height:10.2222vw; background-image:url("./images/mo_female2_off_wlc.png"); }
+	.floating .db_box ul li.sex input:first-child + label { background-image:url("./images/mo_male2_off_wlc.png"); }
+	.floating .db_box ul li.sex input:checked + label { background-image:url("./images/mo_female2_on_wlc.png"); }
+	.floating .db_box ul li.sex input:first-child:checked + label { background-image:url("./images/mo_male2_on_wlc.png"); }
+
+	.floating .db_box .btn_area { margin-top:4vw; padding:0;}
+	.floating .db_box .btn_area:after { content:""; display:block; clear:both; }
+	.floating .db_box .btn_area a { display:inline-block; width:42%; }
+	.floating .db_box .btn_area .result { float:right; width:58%; }
+	.floating .db_box .btn_area.calc .result { display:block; }
+	.floating .db_box .btn_area.calc .result { position:relative; }
+	.floating .db_box .btn_area.calc .result input { position:absolute; height:5.3333vw; padding:0; font-size:3.7777vw; line-height:5.5vw; text-align:center; border:1px solid #d5d5d5; border-radius: 1px; font-family: "NanumSquareBold"; }
+	.floating .db_box .btn_area.calc .result .user_name { left:2.6666vw; top:1.7vw; width:16.2222vw; color:#000; }
+	.floating .db_box .btn_area.calc .result .user_premium { left:12.7vw; top:8.4vw; width:19.3333vw; color:#4755cf; } /*210322 수정*/
+	.floating .db_box .btn_area.consult { display:none; }
+	.floating .btn .btn_toggle { position:absolute; top:-5vw; left:50%; margin-left:-6vw; width:12vw; height:5.3333vw; text-indent:-9999px; background:url("./images/m20210222_aia_float_close.png") no-repeat 0 0 / 100% auto; }
+	.floating.on .btn .btn_toggle { background-image:url("./images/m20210222_aia_float_close.png"); } 
+
+	.popup { display: none; }
+	.popup .mask { position: fixed; left: 0; top: 0; right: 0; bottom: 0; background: #000; opacity: 0.7; filter: alpha(opacity=70); z-index: 100; }
+	.popup .popup_content { position: fixed; left: 50%; top: 50%; background: #fff; z-index: 101; }
+	.popup.agree button { outline: none; }
+	.popup.agree .popup_content { top:40px; width:550px; padding:30px; margin-left:-275px; background:#fff; border:2px solid #d31145; border-radius: 56px; }
+	.popup.agree .popup_content .img {width:74%;}
+	.popup.agree .popup_content .img img {width:100%;}
+	.popup.agree .wrap { padding:0; }
+	.popup.agree .wrap .agree { margin-top: 25px; }
+	.popup.agree .wrap .agree > div { position: relative;  margin-top: 5px;  }
+	.popup.agree .wrap .agree input { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+	.popup.agree .wrap .agree label { display:block; height:34px; padding-left: 27px; background: url("./images/m20210222_popup_radio_off.png") no-repeat left 0 top 7px / 20px auto; }
+	.popup.agree .wrap .agree label img { position:relative; top:9px; height:20px; }
+	.popup.agree .wrap .agree input:checked + label { background-image: url("./images/m20210222_popup_radio_on.png"); }
+	.popup.agree .wrap .agree button { display:inline-block; position: absolute; right: 0; top:0; width:90px; height:34px; text-indent:-9999px; background: url("./images/m20210222_popup_btn_agree_off.png") no-repeat 0 0 / 100% auto; }
+	.popup.agree .wrap .agree button.on { background-image: url("./images/m20210222_popup_btn_agree_on.png"); }
+	.popup.agree .wrap .agree button img { height: 100%; }
+	.popup.agree .wrap .agree .toggle { display:none; height:120px; margin:6px 0 10px; border:2px solid #dfdfdf; overflow:auto; }
+	.popup.agree .wrap .agree .toggle img { width:100%; }
+	.popup.agree .wrap .all_check { margin-top:15px; }
+	.popup.agree .wrap .all_check,
+	.popup.agree .wrap .all_check img { width:100%; }
+	.popup.agree .wrap .btn_area .btn_result { display:none; }
+	.popup.agree .wrap .btn_area { margin-top:18px; padding-bottom:36px; }
+	.popup.agree .wrap .btn_area:after { content:""; display:block; clear:both; }
+	.popup.agree .wrap .btn_area a { display:block; float:right; width:218px; }
+	.popup.agree .wrap .btn_area a.btn01,
+	.popup.agree .wrap .btn_area a.btn02 { float:left; }
+	.popup.agree .wrap .btn_area a img { width:100%; }
+	.popup.agree .wrap .btn_area .btn01 { display:none; }
+	.popup.agree .btn_close { display:block; position:absolute; top:25px; right:30px; width:25px; height:25px;  }
+	.popup.agree .btn_close img { width:100%; }
+
+	.popup.agree .popup_content { width: 93%; left: 3.5%; top: 2%; margin:0; padding:5vw; border-radius: 8vw; }
+	.popup.agree .wrap { padding:0; }
+	.popup.agree .wrap .agree { margin-top: 3.6666vw; }
+	.popup.agree .wrap .agree > div { margin-top: 5px;  }
+	.popup.agree .wrap .agree label { height:6.6666vw; padding-left: 5.1111vw; background-position:0 1.5vw; background-size:3.8888vw auto; }
+	.popup.agree .wrap .agree label img { top:2vw; width:auto; height:3.3333vw; }
+	.popup.agree .wrap .agree button { width:17.5555vw; height:6.6666vw; }
+	.popup.agree .wrap .agree .toggle { height:16vw; margin:1.1111vw 0 2.2222vw; border-width:1px; }	
+	.popup.agree .wrap .all_check { margin-top:3vw; }
+	.popup.agree .wrap .btn_area { margin-top:3.3333vw; padding-bottom:4.4444vw; }
+	.popup.agree .wrap .btn_area a { width:42.2222vw; }
+	.popup.agree .btn_close { top:3.3333vw; right:3.3333vw; width:5vw; height:5vw;  }
+     
+    /*210322 수정*/
+	.popup.type02 .popup_content { width:94%; left: 3%; top: 50%;}
+	.popup.type02 .popup_content { border-top: 5vw solid #4755cf; text-align: center; padding-bottom:8vw; }
+	.popup.type02 .popup_content h2 { margin-top: 10vw; padding-top: 14vw; background: url("./images/m20210222_popup_icon01.png") no-repeat center 0 / 11vw auto; }
+	.popup.type02 .popup_content p.text { margin-top: 6vw; font-size: 4vw; line-height: 5.2vw; padding: 0 1vw; }
+	.popup.type02 .popup_content p.text span { color: #4755cf; }
+	.popup.type02 .popup_content p.guide { margin-top: 3.2vw; font-size: 3.6vw; }
+	.popup.comp .popup_content { margin-top:-40vw; }
+	.popup.comp .popup_content h2 { font-size: 8.4vw; line-height:10vw; }
+	.popup.comp .popup_content h2 span { color:#4755cf; }
+	.popup.comp .btn_close { position: absolute; top:8px; right: 8px; }
+	.popup.calc .popup_content { margin-top:-40vw; }
+	.popup.calc .popup_content h2 { font-size: 4vw; }
+	.popup.calc .popup_content .calc_area { margin-top: 2.4vw; font-size: 8.6vw; }
+	.popup.calc .popup_content .calc_area span { color: #4755cf; }
+	.popup.calc .popup_content .calc_area strong { margin: 0 7.6vw; font-size: 8.4vw; color: #4755cf; }
+	.popup.calc .btn_close { position: absolute; top:8px; right: 8px; }
+}
+ /*210322 수정*/
+
+</style>
+
+</head>
+<body>
+	<div id="AIA_wrap">
+		<div class="header">
+			<div class="inner">
+				<img src="./images/c20210222_blank.gif" data-pc-src="./images/w20210222_aia_header.gif" data-mo-src="./images/m20210222_aia_header.gif" alt="AIA : HEALTHIER, LONGER, BETTER LIVES 공식사이트 (무)원스톱슈퍼암보험(갱신형)">
+				<a href="https://www.aiadirect.co.kr/event/aia_gateway_1.jsp" class="btn_home" >HEALTHIER, LONGER, BETTER LIVES AIA</a>
+				<a href="tel:080-200-6060" class="btn_tele" >상담전화 : 080-200-6060</a>
+				<div class="text only_pc">
+					<img src="./images/w20210222_aia_header_text01.png" alt="지금 바로 전문가와 상담하려면?">
+					<div class="motion">
+						<div class="tri n01"></div>
+						<div class="tri n02"></div>
+						<div class="tri n03"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="contents">
+			<div class="s01">
+				<div class="inner">
+					<img src="./images/m20210222_aia_s01_img01.jpg" class="only_mo" alt="지병이 있어도, 암에 걸린 적이 있어도! (최근 5년 이내 제외) 초간단 심사 통과하면, 가입 OK! #유병자도  가입 가능한 암보험">
+					<div class="text only_pc">
+						<img src="./images/w20210222_aia_s01_text01.png" alt="지병이 있어도, 암에 걸린 적이 있어도! (최근 5년 이내 제외) 초간단 심사 통과하면, 가입 OK! #유병자도  가입 가능한 암보험">
+					</div>
+					<div class="motion">
+						<div class="m01">
+							<img src="./images/c20210222_blank.gif" data-pc-src="./images/w20210222_aia_s01_mo01.png" data-mo-src="./images/m20210222_aia_s01_mo01.png" alt="">
+						</div>
+						<div class="m02 dot"></div>
+						<div class="m03 dot"></div>
+						<div class="m04 dot"></div>
+					</div>
+					<div class="db_box">
+						<h3><img src="./images/c20210222_blank.gif" data-pc-src="./images/w20210222_aia_db_text01.png" data-mo-src="./images/m20210222_aia_db_text01.png" alt="실속있는 보럼효 원클릭 확인"></h3>
+						<form method="post" action="" name="frm">
+							<ul>
+								<li class="name">
+									<label for="rn_cust_name">이름</label>
+									<input type="text" id="rn_cust_name" name="rn_cust_name" >
+								</li>		
+								<li class="sex">
+									<input type="radio" id="rn_sex1" name="rn_sex" value="M" checked="checked">
+									<label for="rn_sex1">남</label>
+									<input type="radio" id="rn_sex2" name="rn_sex" value="F">
+									<label for="rn_sex2">여</label>
+								</li>
+								<li class="birth">
+									<label for="rn_jumin1">생년월일</label>
+									<input type="text" id="rn_jumin1" name="rn_jumin1" maxlength="6" placeholder="예 730804">
+								</li>
+								<li class="phone">
+									<label for="cr_mphone">연락처</label>
+									<input type="text" id="cr_mphone" name="cr_mphone" maxlength="11" placeholder="예 01012345678">
+								</li>
+							</ul>
+						</form>	
+						<div class="btn_area">
+							<a href="#" data-role="open_popup" data-send="popup_event|1"  >
+								<img src="./images/c20210222_blank.gif" data-pc-src="./images/w20210222_aia_db_btn01.png" data-mo-src="./images/m20210222_aia_db_btn01.png" alt="내 보험료 실시간 계산">
+							</a>
+							<a href="#" data-role="open_popup" data-send="popup_event|2" >
+								<img src="./images/c20210222_blank.gif" data-pc-src="./images/w20210222_aia_db_btn02.png" data-mo-src="./images/m20210222_aia_db_btn02.png" alt="무료 상담 신청">
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="b01">
+				<div class="inner">
+					<div class="slick_wrap">
+						<div class="slick_slide">
+							<div><img src="./images/c20210222_blank.gif" data-pc-src="./images/w20210222_aia_b01_text01.png" data-mo-src="./images/m20210222_aia_b01_text01.png" alt=""></div>
+							<div><img src="./images/c20210222_blank.gif" data-pc-src="./images/w20210222_aia_b01_text02.png" data-mo-src="./images/m20210222_aia_b01_text02.png" alt=""></div>
+							<div><img src="./images/c20210222_blank.gif" data-pc-src="./images/w20210222_aia_b01_text03.png" data-mo-src="./images/m20210222_aia_b01_text03.png" alt=""></div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="b02 only_mo">
+				<div class="inner">
+					<img src="./images/m20210222_aia_mo01_img01.gif" alt="">
+					<input type="text" class="user_name" readonly >
+					<input type="text" class ="user_premium" name="calcVal3" readonly value="???"></input>
+				</div>
+			</div>
+
+			<div class="s02">
+				<div class="inner">
+					<img src="./images/c20210222_blank.gif" data-pc-src="./images/w20210222_aia_s02_img01.jpg" data-mo-src="./images/m20210222_aia_s02_img01.jpg" alt="">
+					<div class="text">
+						<img src="./images/c20210222_blank.gif" data-pc-src="./images/w20210222_aia_s02_t01.png" data-mo-src="./images/m20210222_aia_s02_t01.png" alt="">
+					</div>
+					<div class="motion">
+						<div class="line"></div>
+						<img src="./images/c20210222_blank.gif"  data-pc-src="./images/w20210222_aia_s02_m01.png" data-mo-src="./images/m20210222_aia_s02_m01.png" class="m01" alt="">
+						<img src="./images/c20210222_blank.gif"  data-pc-src="./images/w20210222_aia_s02_m02.png" data-mo-src="./images/m20210222_aia_s02_m02.png" class="m02" alt="">
+						<img src="./images/c20210222_blank.gif"  data-pc-src="./images/w20210222_aia_s02_m03.png" data-mo-src="./images/m20210222_aia_s02_m03.png" class="m03" alt="">
+						<img src="./images/w20210222_aia_c_img01.png" class="only_pc m04" alt="">
+					</div>
+				</div>
+			</div>
+
+
+			<div class="s03">
+				<div class="inner">
+					<img src="./images/c20210222_blank.gif" data-pc-src="./images/w20210222_aia_s03_img01.jpg" data-mo-src="./images/m20210222_aia_s03_img01.jpg" alt="">
+					<div class="text">
+						<img src="./images/c20210222_blank.gif" data-pc-src="./images/w20210222_aia_s03_t01.png" data-mo-src="./images/m20210222_aia_s03_t01.png" alt="">
+					</div>
+					<div class="motion">
+						<div class="line"></div>
+						<img src="./images/c20210222_blank.gif" data-pc-src="./images/w20210222_aia_s03_m01.png" data-mo-src="./images/m20210222_aia_s03_m01.png" class="m01" alt="">
+						<img src="./images/c20210222_blank.gif" data-pc-src="./images/w20210222_aia_s03_m02.png" data-mo-src="./images/m20210222_aia_s03_m02.png" class="m02" alt="">
+						<img src="./images/c20210222_blank.gif" data-pc-src="./images/w20210222_aia_s03_m03.png" data-mo-src="./images/m20210222_aia_s03_m03.png" class="m03" alt="">
+						<img src="./images/w20210222_aia_c_img01.png" class="only_pc m04" alt="">
+					</div>
+				</div>
+			</div>
+
+			<div class="s04">
+				<div class="inner">
+					<img src="./images/c20210222_blank.gif" data-pc-src="./images/w20210222_aia_s04_img01.jpg" data-mo-src="./images/m20210222_aia_s04_img01.jpg" alt="">
+					<div class="text">
+						<img src="./images/c20210222_blank.gif" data-pc-src="./images/w20210222_aia_s04_t01.png" data-mo-src="./images/m20210222_aia_s04_t01.png" alt="">
+					</div>
+					<div class="motion">
+						<div class="line"></div>
+						<div class="m01">
+							<img src="./images/c20210222_blank.gif" data-pc-src="./images/w20210222_aia_s04_m01.png" data-mo-src="./images/m20210222_aia_s04_m01.png" alt="">
+							<img src="./images/c20210222_blank.gif" data-pc-src="./images/w20210222_aia_s04_t02.png" data-mo-src="./images/m20210222_aia_s04_t02.png" class="t01" alt="">
+							<div class="line"></div>
+						</div>
+						<div class="m02">
+							<img src="./images/c20210222_blank.gif" data-pc-src="./images/w20210222_aia_s04_m02.png" data-mo-src="./images/m20210222_aia_s04_m02.png" alt="">
+							<img src="./images/c20210222_blank.gif" data-pc-src="./images/w20210222_aia_s04_t03.png" data-mo-src="./images/m20210222_aia_s04_t03.png" class="t01" alt="">
+							<div class="line"></div>
+						</div>
+						<div class="m03">
+							<img src="./images/c20210222_blank.gif" data-pc-src="./images/w20220113_aia_s04_m03.png" data-mo-src="./images/m20220113_aia_s04_m03.png" alt="">
+							<img src="./images/c20210222_blank.gif" data-pc-src="./images/w20220113_aia_s04_t04.png" data-mo-src="./images/m20220113_aia_s04_t04.png" class="t01" alt="">
+							<div class="line"></div>
+						</div>
+						<img src="./images/w20210222_aia_c_img01.png" class="only_pc m04" alt="">
+					</div>
+				</div>
+			</div>
+
+			<div class="s05">
+				<div class="inner">
+					<img src="./images/c20210222_blank.gif" data-pc-src="./images/w20210222_aia_s05_img01.jpg" data-mo-src="./images/m20210222_aia_s05_img01.jpg" alt="">
+				</div>
+			</div>
+
+			<div class="s06">
+				<div class="inner">
+					<img src="./images/c20210222_blank.gif" data-pc-src="./images/w20210222_aia_s06_img01.jpg" data-mo-src="./images/m20210222_aia_s06_img01.jpg" alt="">
+				</div>
+			</div>
+
+			<div class="s07">
+				<div class="inner">
+					<img src="./images/c20210222_blank.gif" data-pc-src="./images/w20210222_aia_s07_img01.jpg" data-mo-src="./images/m20210222_aia_s07_img01.jpg" alt="">
+					<div class="slick_wrap">
+						<div class="slick_slide">
+							<div><img src="./images/c20210222_blank.gif" data-pc-src="./images/w20210222_aia_slide_text01.png" data-mo-src="./images/m20210222_aia_slide_text01.png" alt=""></div>
+							<div><img src="./images/c20210222_blank.gif" data-pc-src="./images/w20210222_aia_slide_text02.png" data-mo-src="./images/m20210222_aia_slide_text02.png" alt=""></div>
+							<div><img src="./images/c20210222_blank.gif" data-pc-src="./images/w20210222_aia_slide_text03.png" data-mo-src="./images/m20210222_aia_slide_text03.png" alt=""></div>
+							<div><img src="./images/c20210222_blank.gif" data-pc-src="./images/w20210222_aia_slide_text04.png" data-mo-src="./images/m20210222_aia_slide_text04.png" alt=""></div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="b03 only_mo">
+				<div class="inner">
+					<a href="tel:080-200-6060"><img src="./images/m20210222_aia_b02_img01.gif" alt="궁금한 점이 남았다면, 쉽게 설명해드리는 무료 상담 Click!  080-200-6060"></a>
+				</div>
+			</div>
+
+			<div class="s08">
+				<div class="inner">
+					<div class="db_box">
+						<h3><img src="./images/c20210222_blank.gif" data-pc-src="./images/w20210222_aia_s08_text01.png" data-mo-src="./images/m20210222_aia_s08_text01.png" alt="(무) 꼭필요한암보험III(갱신형) 가성비 좋은 암 보험료, 지금 계산하세요!"></h3>
+						<form method="post" action="" name="frm2">
+							<ul>
+								<li class="name">
+									<label for="rn_cust_name2">이름</label>
+									<input type="text" id="rn_cust_name2" name="rn_cust_name" >
+								</li>
+								<li class="sex">
+									<input type="radio" id="rn_sex3" name="rn_sex2" value="M" checked="checked">
+									<label for="rn_sex3">남</label>
+									<input type="radio" id="rn_sex4" name="rn_sex2" value="F">
+									<label for="rn_sex4">여</label>
+								</li>
+								<li class="birth">
+									<label for="rn_jumin2">생년월일</label>
+									<input type="text" id="rn_jumin2" name="rn_jumin1" maxlength="6" placeholder="예 730804">
+								</li>
+								<li class="phone">
+									<label for="cr_mphone2">연락처</label>
+									<input type="text" id="cr_mphone2" name="cr_mphone" maxlength="11" placeholder="예 01012345678">
+								</li>
+							</ul>
+						</form>
+						<!-- 210322 수정 -->
+						<div class="btn_area">
+							<a href="#" data-role="open_popup" data-send="popup_event|1" >
+								<img src="./images/c20210222_blank.gif" data-pc-src="./images/w20210222_aia_db_btn03.png" data-mo-src="./images/m20210222_aia_db_btn01.png" alt="내 보험료 실시간 계산">
+							</a>
+							<a href="#" data-role="open_popup" data-send="popup_event|2" >
+								<img src="./images/c20210222_blank.gif" data-pc-src="./images/w20210222_aia_db_btn04.png" data-mo-src="./images/m20210222_aia_db_btn02.png" alt="무료 상담 신청">
+							</a>
+						</div>
+						<!-- 210322 수정 -->
+					</div>
+				</div>
+			</div>
+
+            <!-- guide_area -->
+            <div class="guide_area">
+				<div class="subTitle">
+					<div class="wrap">
+						<button><img src="./images/c20210222_blank.gif" data-pc-src="./images/w20210222_aia_guide_text01.png" data-mo-src="./images/m20210222_aia_guide_text01.png" alt="(무)원스톱슈퍼암보험(갱신형) 가입시 알아두어야 할 사항"></button>
+					</div>
+				</div>
+				<div class="img">
+					<img src="./images/c20210222_blank.gif" data-pc-src="./images/w_guaranteedissue_mhci.jpg" data-mo-src="./images/m_guaranteedissue_mhci.jpg" alt="가입시 유의사항 이미지">
+					<div class="btn">
+						<a href="https://www.aia.co.kr/ko/disclosure/our-products/insurance-product-list.html" target="_blank" >
+							<img src="./images/c20210222_blank.gif" data-pc-src="./images/w20210222_aia_guide_btn01.gif" data-mo-src="./images/m20210222_aia_guide_btn01.gif" alt="보호금융상품등록부">
+						</a>
+					</div>
+				</div>
+            </div>
+			<!-- end : guide_area -->
+		</div>
+
+		<div class="footer">
+			<div class="inner">
+				<img src="./images/c20210222_blank.gif" data-pc-src="./images/w20210222_aia_footer.gif" data-mo-src="./images/m20210222_aia_footer.gif" alt="하단문구참조">
+				<div class="hide">
+					<p>AIA생명 한국지점 대표:피터 정 / 사업자등록번호 201-84-01688</p>
+					<address>서울시 중구 통일로 2길 16(순화동 216) AIA Tower / 고객센터 1588-9898</address>
+					<p>Copyright 2016, AIA Group Limited and its subsidiaries. All rights reserved.</p>
+				</div>
+			</div>
+		</div>
+
+		<!-- 플로팅바 -->
+		<div class="floating only_mo" >
+			<div class="layer">
+				<div class="db_box">
+					<form method="post" action="" name="frm3">
+						<ul>
+							<li class="name">
+								<input type="text" name="rn_cust_name" placeholder="이름" >
+							</li>
+							<li class="sex">
+								<input type="radio" id="rn_sex5" name="rn_sex3" value="M" checked="checked">
+								<label for="rn_sex5">남</label>
+								<input type="radio" id="rn_sex6" name="rn_sex3" value="F">
+								<label for="rn_sex6">여</label>
+							</li>
+							<li class="birth">
+								<input type="text" name="rn_jumin1" maxlength="6" placeholder="생년월일 (예 730804)" onKeyUp="onlyNumber(this);" onKeyPress="checkInt()">
+							</li>
+							<li class="phone">
+								<input type="text" name="cr_mphone" maxlength="11" placeholder="휴대폰번호(’-’없이 입력)" onKeyUp="onlyNumberWithBar(this);numToTel(this);" onKeyPress="checkInt()" >
+							</li>
+						</ul>
+					</form>
+					<!-- 210322 수정 -->
+					<div class="btn_area calc">
+						<!-- 플로팅바 "보험료 결과보기" 버튼 -->
+						<a href="#" data-role="open_popup" data-send="popup_event|1" ><img src="./images/m20210222_aia_float_btn03.png" alt="보험료 결과보기"></a>
+						<div class="result">
+							<img src="./images/m20210222_aia_float_text01.png" alt="">
+							<input type="text" class="user_name" readonly >
+							<input type="text" class ="user_premium" name="calcVal3" readonly value="???"></input>
+						</div>
+					</div>
+
+					<div class="btn_area consult">
+						<!-- 플로팅바 "상담 신청하기" 버튼 -->
+						<a href="#" data-role="open_popup" data-send="popup_event|2" ><img src="./images/m20210222_aia_float_btn04.png" alt="상담 신청하기"></a>
+						<div class="result">
+							<img src="./images/m20210222_aia_float_text02.png" alt="">
+						</div>
+					</div>
+					<!-- 210322 수정 -->
+				</div>	
+				
+				<div class="btn">
+					<button class="btn_toggle">열기/닫기</button>
+				</div>
+			</div>
+			
+			<div class="inner">
+				<ul>
+					<li><a href="#" class="btn01"><img src="./images/m20210222_aia_float_btn01.png" alt="내 보험료 계산"></a></li>
+					<li><a href="#" class="btn02"><img src="./images/m20210222_aia_float_btn02.png" alt="무료 상담 신청"></a></li>
+				</ul>
+			</div>
+		</div>
+		<!-- // 플로팅바 -->
+
+
+		<!-- popup : 개인정보 동의 팝업 -->
+		<div class="popup agree" data-receive="popup_event">
+			<div class="mask"></div>
+			<div class="popup_content">
+				<div class="img">
+					<img src="./images/c20210222_blank.gif" data-pc-src="./images/w20210222_popup_title01.png" data-mo-src="./images/m20210222_popup_title01.png" alt="AIA가 고객님만을 위한 맞춤 보장을 설계 중입니다" >
+				</div>
+				<div class="wrap">
+					<div class="agree_area">
+						<div class="agree">
+							<div>
+								<input type="checkbox" class="checkbox" id="cust_uyn1" name="cust_uyn1">
+								<label for="cust_uyn1"><img src="./images/c20210222_blank.gif" data-pc-src="./images/w20210222_popup_text01.png" data-mo-src="./images/m20210222_popup_text01.png" alt="개인정보 수집 및 이용 동의 (필수)"></label>
+								<button>자세히 보기</button>
+								<div class="toggle">
+									<img src="./images/c20210222_blank.gif" data-pc-src="./images/w20210222_popup_agree01.gif" data-mo-src="./images/m20210222_popup_agree01.gif" alt="개인정보 수집 및 이용 동의 약관" >
+								</div>
+							</div>
+							<div>
+								<input type="checkbox" class="checkbox" id="cust_eyn1" name="cust_eyn1">
+								<label for="cust_eyn1"><img src="./images/c20210222_blank.gif" data-pc-src="./images/w20210222_popup_text02.png" data-mo-src="./images/m20210222_popup_text02.png" alt="개인정보 제공 동의 (필수)"></label>
+								<button>자세히 보기</button>
+								<div class="toggle">
+									<img src="./images/c20210222_blank.gif" data-pc-src="./images//w20210222_popup_agree02.gif" data-mo-src="./images/m20210222_popup_agree02.gif" alt="개인정보 제공 동의 약관" >
+								</div>
+							</div>
+						</div>
+						<button class="all_check" onclick="calc()" >
+							<img src="./images/c20210222_blank.gif" data-pc-src="./images/w20210222_popup_btn01.png" data-mo-src="./images/m20210222_popup_btn01.png" alt="전체 동의하기" >
+						</button>
+					</div>
+				</div>
+				
+				<button class="btn_close">
+					<img src="./images/c20210222_blank.gif" data-pc-src="./images/w20210222_popup_btn_close.png" data-mo-src="./images/m20210222_popup_btn_close.png" alt="팝업 닫기" >
+				</button>
+			</div>
+		</div>
+		<!-- // popup : 개인정보 동의 팝업 -->
+
+		<!-- 210322 수정 -->
+        <!--popup : 상담신청 완료 -->
+		<div class="popup type02 comp" >
+			<div class="mask"></div>
+			<div class="popup_content">
+				<h2 class="bold">보험상담 신청이<br><span>완료</span>되었습니다</h2>
+				<p class="text bold">잠시 후 <span>전문상담원</span>이 보장내역과 보험료를
+					<br>친절하게 설명해드립니다. (평일기준)</p>
+				<p class="guide">XXXX-XX-XX XX시 XX분 AIA생명 마케팅수신동의완료</p>
+				<button class="btn_close"><img src="./images/c20210222_blank.gif" data-pc-src="./images/w20210222_popup_btn_close02.png" data-mo-src="./images/m20210222_popup_btn_close02.png" alt="팝업 닫기"></button>
+			</div>
+		</div>
+		<!-- // popup : 상담신청 완료 -->
+
+		<!-- popup : 보험료 계산 -->
+		<div class="popup type02 calc">
+			<div class="mask"></div>
+			<div class="popup_content">
+				<h2 class="bold"><span id="user_name">XXX</span> 고객님의 보험료는</h2>
+				<div class="calc_area bold">월 <span>[<strong id="user_premium">00,000</strong>]</span>원</div>
+				<p class="text bold">잠시 후 <span>전문상담원</span>이 보장내역과 보험료를
+					<br>친절하게 설명해드립니다. (평일기준)</p>
+				<p class="guide">XXXX-XX-XX XX시 XX분 AIA생명 마케팅수신동의완료</p>
+				<button class="btn_close"><img src="./images/c20210222_blank.gif" data-pc-src="./images/w20210222_popup_btn_close02.png" data-mo-src="./images/m20210222_popup_btn_close02.png" alt="팝업 닫기"></button>
+			</div>
+		</div>
+		<!-- // popup : 보험료 계산 -->
+       <!-- 210322 수정 -->
+
+	</div>
+</body>
+
+</html>
